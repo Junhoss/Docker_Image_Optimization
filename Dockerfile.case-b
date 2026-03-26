@@ -1,0 +1,16 @@
+# --- Stage 1: Builder (빌드 전용) ---
+FROM eclipse-temurin:17-jdk AS builder
+WORKDIR /app
+COPY /step05_empApp/ .
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
+
+# --- Stage 2: Runtime (실행 전용) ---
+# 여전히 JDK를 사용하지만, 소스 코드와 빌드 도구는 제외됨
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+
+# builder 스테이지에서 만들어진 JAR 파일만 쏙 빼옴
+COPY --from=builder /app/build/libs/step05_empApp-0.0.1-SNAPSHOT.jar app.jar
+
+CMD ["java", "-jar", "app.jar"]

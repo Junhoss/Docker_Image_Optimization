@@ -1,0 +1,15 @@
+# --- Stage 1: Builder ---
+FROM eclipse-temurin:17-jdk AS builder
+WORKDIR /app
+COPY /step05_empApp/ .
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
+
+# --- Stage 2: Runtime (초경량 JRE) ---
+# JDK 대신 JRE-alpine을 사용하여 OS와 자바 실행 환경 자체를 최소화
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+COPY --from=builder /app/build/libs/step05_empApp-0.0.1-SNAPSHOT.jar app.jar
+
+CMD ["java", "-jar", "app.jar"]
