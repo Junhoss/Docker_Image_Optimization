@@ -1,0 +1,14 @@
+# 1. 빌드와 실행을 모두 해야 하므로 무거운 JDK 베이스 이미지 사용
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /step05_empApp
+
+# 2. 소스 코드 전체 복사
+COPY step05_empApp/ .
+
+# 3. 컨테이너 내부에서 Gradle을 이용해 빌드 진행 (테스트 생략)
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
+
+# 4. 빌드된 JAR 파일을 바로 실행
+CMD ["java", "-jar", "build/libs/step05_empApp-0.0.1-SNAPSHOT.jar"]
