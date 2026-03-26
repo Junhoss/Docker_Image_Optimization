@@ -1,8 +1,39 @@
 # 🐳 도커 이미지 빌드 및 최적화 프로젝트
 
+## 🧑‍💻 팀원 소개
+| ![](https://avatars.githubusercontent.com/u/50224952?v=4) | ![](https://avatars.githubusercontent.com/u/204296918?v=3) |
+|:---:|:---:|
+| **이명진**<br>[@septeratz](https://github.com/septeratz) | **이준호**<br>[@Junhoss](https://github.com/Junhoss) |
+<br/>
+
+
 ## 📌 프로젝트 개요 (Objective)
 
-본 프로젝트는 Spring Boot 애플리케이션의 Docker 이미지 빌드 전략에 따른 인프라 효율성을 비교 분석합니다. 단일 스테이지(Single-stage) 빌드부터 Multi-stage, 경량화 JRE, 그리고 Layered JAR 기술을 적용한 모델까지 총 4가지 케이스를 구축하고 정량적 지표(이미지 크기, 빌드 시간)를 측정하여 최적의 CI/CD 파이프라인 구성 방안을 도출하는 것을 목표로 합니다.
+**Docker 이미지 빌드 전략 비교 분석 프로젝트**
+
+본 프로젝트는 Spring Boot 애플리케이션의 Docker 이미지 빌드 전략에 따른 인프라 효율성을 비교 분석합니다.
+
+**분석 대상 4가지 케이스**
+
+- Single-stage 빌드 (기본)
+- Multi-stage 빌드
+- 경량화 JRE 적용
+- Layered JAR 기술 적용
+
+단일 스테이지(Single-stage) 빌드부터 Multi-stage, 경량화 JRE, 그리고 Layered JAR 기술을 적용한 모델까지 총 4가지 케이스를 구축하고 정량적 지표(이미지 크기, 빌드 시간)를 측정하여 최적의 CI/CD 파이프라인 구성 방안을 도출하는 것을 목표로 합니다.
+
+## 🛠 실험 환경 (Environment)
+
+본 실험은 다음과 같은 시스템 및 기술 스택 위에서 진행되었습니다.
+
+- **Infrastructure (OS):** Ubuntu 20.04.1 LTS
+- **Language:** Java 17
+- **Framework:** Spring Boot 3.x
+- **Build Tool:** Gradle (Wrapper)
+- **Containerization:** Docker Engine
+- **Base Images Used:**
+    - `eclipse-temurin:17-jdk` (빌드 환경 및 대조군 런타임용)
+    - `eclipse-temurin:17-jre-alpine` (최적화 런타임용 초경량 이미지)
 
 ## 🧪 실험 설계 및 핵심 코드 (Experiment Strategies)
 
