@@ -92,12 +92,13 @@ ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]
 > **측정 조건:** 코드 1줄 수정 후 재빌드 시 소요되는 시간(Warm Build)과 최종 이미지 크기를 비교.
 > 
 
-| **전략 (Version)** | **베이스 이미지** | **최종 이미지 크기** |
-| --- | --- | --- |
-| **V1 (Single-stage)** | `eclipse-temurin:17-jdk` | **775MB** |
-| **V2 (Multi-stage)** | `eclipse-temurin:17-jdk` | **488MB** |
-| **V3 (JRE Alpine)** | `eclipse-temurin:17-jre-alpine` | **250MB** |
-| **V4 (Layered JAR)** | `eclipse-temurin:17-jre-alpine` | **250MB** |
+| **전략 (Version)** | **베이스 이미지** | **최종 이미지 크기** | **Warm Build 시간** | **보안/경량화** |
+| --- | --- | --- | --- | --- |
+| **V1 (Single-stage)** | `eclipse-temurin:17-jdk` | 775MB | 약 80초 | 최하 (JDK, 소스코드 포함) |
+| **V2 (Multi-stage)** | `eclipse-temurin:17-jdk` | 488MB | 약 80초 | 하 (JDK 포함) |
+| **V3 (JRE Alpine)** | `eclipse-temurin:17-jre-alpine` | **250MB**  | 약 80초 | 상 (JRE Alpine) |
+| **V4 (Layered JAR)** | `eclipse-temurin:17-jre-alpine` | **250MB** | **약 5초** | 최상 (JRE Alpine) |
+
 
 ## 💡 결과 분석 및 인사이트 (Analysis)
 
